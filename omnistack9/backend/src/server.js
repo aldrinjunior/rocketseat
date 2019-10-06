@@ -1,8 +1,12 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const routes = require('./routes');
 
 const app = express();
-
+mongoose.connect('mongodb+srv://omnistack:omnistack@omnistack9-8nfwh.mongodb.net/semana9?retryWrites=true&w=majority' , {
+     useNewUrlParser: true,
+     useUnifiedTopology: true,
+})
 //GET, POST, PUT, DELETE (Métodos importantes para API REST) CRUD
 
 //get é para listar alguma coisa do backend (ex : listar usarios)
