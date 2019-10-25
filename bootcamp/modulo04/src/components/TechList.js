@@ -27,13 +27,24 @@ class TechList extends Component {
         //nao pode fazer alteraçoes no array e nos objetos, tem que criar ele do zero
     }
 
+    handleDelete = (tech) => {
+        
+    }
+
     render() {
         //console.log(this.state);
         //pode usar div, mas é melhor usar a tag <> fragment
         return (
             <form onSubmit={this.handleSubmit}>
             <ul> 
-                {this.state.techs.map( tech => <li key={tech}>{tech}</li>)}   
+                {this.state.techs.map( tech => (
+                <li key={tech}>
+                  {tech}
+                <button 
+                    onClick={} 
+                    type="button">Remover</button>  
+                </li>
+             ))}   
             </ul>
             <input 
                 type="text" 
