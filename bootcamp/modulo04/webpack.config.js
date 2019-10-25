@@ -17,6 +17,17 @@ module.exports = {
                 use: {
                     loader: 'babel-loader'
                 }    
+            }, {
+                test: /\.css$/,
+                use: [
+                    { loader: 'style-loader' },
+                    { loader: 'css-loader' },
+                ]
+            }, {
+                test: /.*\.(gif|png|jpeg)$/i,   //i ser pra dizer que nao é case sensitive
+                use: {
+                    loader: 'file-loader'
+                }
             }            
         ]
     }
