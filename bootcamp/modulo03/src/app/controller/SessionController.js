@@ -25,21 +25,21 @@ class SessionController {
         }
         
         if(!(await user.checkPassword(password))) {
-            return res.json(401).json({ error: 'password does not match '});
+            return res.status(401).json({ error: 'Password does not match' });
         }
-        const { id, name } = user; {
-            
+
+        const{ id, name } = user;
+
             return res.json({
                 user: {
-                id, 
-                name,
-                email,
-            },
-            token: jwt.sign({ id }, authConfig.secret,{
-                expiresIn: authConfig.expiresIn,
+                    id,
+                    name,
+                    email,
+                },
+                token: jwt.sign({ id }, authConfig.secret, {
+                    expiresIn: authConfig.expiresIn,
             }),
-        });
-        }
+        })
     }
 }
 
