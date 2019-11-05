@@ -12,7 +12,7 @@ module.exports = {
           primaryKey: true,
         },
         age: { 
-          type: Sequelize.FLOAT,
+          type: Sequelize.INT,
           allowNull: false,
         },
         provider: { //provider vai servir para diferenciar o adm dos usuarios 
