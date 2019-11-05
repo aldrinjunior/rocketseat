@@ -1,26 +1,16 @@
-import { Router } from 'express';
-import multer from 'multer';
-import multerConfig from './config/multer';
+import { Router }  from 'express';
 
-import UserController from './app/controllers/UserController';
-import SessionController from './app/controllers/SessionController';
-import FileController from './app/controllers/FileController';
-import ProviderController from './app/controllers/ProviderController';
-
+import UserController from './app/controller/UserController';
+import SessionController from './app/controller/SessionController';
 import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
-const upload = multer(multerConfig);
 
-routes.post('/users', UserController.store);
+routes.post('/users', UserController.store); 
 routes.post('/sessions', SessionController.store);
-
+//evitar que essa rota update seja acessada quando o usuario não estiver logado na aplicação 
+//middleware global, só vai servir para as rotas de update do usuario
 routes.use(authMiddleware);
-
-routes.put('/users', UserController.update);
-
-routes.get('/providers', ProviderController.index);
-
-routes.post('/files', upload.single('file'), FileController.store);
+routes.put('/users', UserController.update);//middleware local tem que inserir authMiddlewares com virgual anes do userController
 
 export default routes;

@@ -1,21 +1,22 @@
+//essa index.js serve para criar um loader das classes que é responsável pela conexão com o bancode de dados
 import Sequelize from 'sequelize';
 
 import User from '../app/models/User';
-import File from '../app/models/File';
 
 import databaseConfig from '../config/database';
 
-const models = [User, File];
+const models = [User];
 
 class Database {
     constructor() {
         this.init();
     }
+
     init() {
         this.connection = new Sequelize(databaseConfig);
-        models
-            .map(model => model.init(this.connection))
-            .map(model => model.associate && model.associate(this.connection.models));
-        }
-    }    
-export default new Database(); 
+
+        models.map(model => model.init(this.connection));
+    }
+}
+
+export default new Database; //sempre exportar o metodo principal criado na class 
