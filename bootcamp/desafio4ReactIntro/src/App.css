@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+body {
+    background: silver;
+    color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    border: slateblue;
+}
+
+header {
+    background: #3b5998;
+    display: left;
+    justify-content: center;
+}
+
+
