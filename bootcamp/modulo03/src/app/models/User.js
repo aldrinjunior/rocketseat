@@ -24,6 +24,11 @@ class User extends Model {
         
         return this;
     }
+
+    static associate(models) {
+        this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
+    }   //belongsto vai associar o filename ao arquivo 
+
     checkPassword(password) {
         return bcrypt.compare(password, this.password_hash);
     }
