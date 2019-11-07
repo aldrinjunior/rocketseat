@@ -7,9 +7,9 @@ import SessionController from './app/controller/SessionController';
 import FileController from './app/controller/FileController';
 import ProviderController from './app/controller/ProviderController';
 import AppointmentController from './app/controller/AppointmentController';
+import ScheduleController from './app/controller/ScheduleController';
 
 import authMiddleware from './app/middlewares/auth';
-
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -25,6 +25,8 @@ routes.get('/providers', ProviderController.index);
 
 routes.get('/appointments', AppointmentController.index);
 routes.post('/appointments', AppointmentController.store);
+//para importar os agendamentos diarios que o administrador vai ver 
+routes.get('/schedule', ScheduleController.index);
 //vai fazer upload de apenas um arquivo e dps retornar um true no insominia
 routes.post('/files', upload.single('file'), FileController.store);
 //precisa salvar essas informacoes do files dentro de algum controller (FileController.js)
