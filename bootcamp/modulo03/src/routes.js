@@ -23,6 +23,7 @@ routes.put('/users', UserController.update);//middleware local tem que inserir a
 
 routes.get('/providers', ProviderController.index);
 
+routes.get('/appointments', AppointmentController.index);
 routes.post('/appointments', AppointmentController.store);
 //vai fazer upload de apenas um arquivo e dps retornar um true no insominia
 routes.post('/files', upload.single('file'), FileController.store);
