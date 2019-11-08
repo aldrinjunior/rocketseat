@@ -8,6 +8,7 @@ import FileController from './app/controller/FileController';
 import ProviderController from './app/controller/ProviderController';
 import AppointmentController from './app/controller/AppointmentController';
 import ScheduleController from './app/controller/ScheduleController';
+import NotificationController from './app/controller/NotificationController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -25,10 +26,14 @@ routes.get('/providers', ProviderController.index);
 
 routes.get('/appointments', AppointmentController.index);
 routes.post('/appointments', AppointmentController.store);
-//para importar os agendamentos diarios que o administrador vai ver 
-routes.get('/schedule', ScheduleController.index);
-//vai fazer upload de apenas um arquivo e dps retornar um true no insominia
-routes.post('/files', upload.single('file'), FileController.store);
+routes.delete('/appointments/:id', AppointmentController.delete);
+
+routes.get('/schedule', ScheduleController.index);//para importar os agendamentos diarios que o administrador vai ver 
+
+routes.get('/notifications', NotificationController.index);
+routes.put('/notifications/:id', NotificationController.update);//rota para marcar a notificação como lida
+
+routes.post('/files', upload.single('file'), FileController.store);//vai fazer upload de apenas um arquivo e dps retornar um true no insominia
 //precisa salvar essas informacoes do files dentro de algum controller (FileController.js)
 
 export default routes;

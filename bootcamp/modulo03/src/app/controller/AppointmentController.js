@@ -1,10 +1,12 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore, format} from 'date-fns';
+import { startOfHour, parseISO, isBefore, format, subHours} from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import User from '../models/User';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
 import Notification from '../schemas/Notification';
+
+import Mail from '../../lib/Mail';
 
 class AppointmentController {
     async index(req, res) { 
@@ -94,6 +96,59 @@ class AppointmentController {
         await Notification.create({
            content: `Novo agendamento de ${user.name} para ${formattedDate}`,
            user: provider_id,
+        });
+
+        return res.json(appointment);
+    }
+    async delete (req, res) { //buscar dados do appointment 
+        const appointment = await Appointment.findByPk(req.params.id, {
+            include: [
+                {
+                    model: User,
+                    as: 'provider',
+                    attributes: ['name', 'email'],
+                },
+                {
+                    model: User,
+                    as: 'user',
+                    attributes: ['name'],
+                }
+            ],
+        });
+        if(appointment.user_id !== req.userId) { //verificar se o id desse usuario é o dono do agendamento 
+
+            return res.status(401).json({ 
+                error: "You don't have permission to cancel this appointment. ",
+        });
+        }
+        
+        const dateWithSub = subHours(appointment.date, 2); //só pode cancelar se for duas horas antes
+        //13:00 (diminuiu duas horas do agendamento)
+        //dateWithSub == 11h
+        //now: 11:25, então nao vai cancelar 
+        if(isBefore (dateWithSub, new Date())) { //e aqui vai dar error se falta menos duas horas para cancelar
+            return res.status(401).json({
+                error: 'You can only cancel appointments 2 hours in advance. ',
+            });
+        }
+        //salvar data de cancelamento no banco de dados 
+        appointment.canceled_at = new Date();
+
+        await appointment.save();
+
+        await Mail.sendMail({
+            to: `${appointment.provider.name} <${appointment.provider.email}>`,
+            subjec: 'Agendamento cancelado',
+            template: 'cancellation', 
+            context: {
+                provider: appointment.provider.name,
+                user: appointment.user.name,
+                date:  format(
+                    appointment.date,
+                    "'dia' dd 'de' MMMM', às' H:mm'h'",
+                    {locale: pt}
+                ),
+            },
         });
 
         return res.json(appointment);
