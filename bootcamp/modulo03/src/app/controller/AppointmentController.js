@@ -16,7 +16,7 @@ class AppointmentController {
         const appointments = await Appointment.findAll({
             where: { user_id: req.userId , canceled_at: null},
             order: ['date'],
-            attributes: ['id', 'date'],
+            attributes: ['id', 'date', 'past', 'cancelable'], //past para verificar se o agendamento já passou ou não
             limit: 20,
             offset: (page -1) * 20, // para listar apenas 20 itens por pagina
             include: [
@@ -65,16 +65,16 @@ class AppointmentController {
         if(isBefore(hourStart, new Date())) { //isBefore serve para ver se já não passou a data que vc quer agendar
             return res.status(400).json({ error: 'Past dates are not permited'});
         }       
-        //check for avaliability  
-        const checkAvaliability = await Appointment.findOne({
+        //check for Available  
+        const checkAvailability = await Appointment.findOne({
             where: {
                 provider_id,
                 canceled_at: null,
                 date: hourStart,
             },
         });
-        if(checkAvaliability) {
-            return res.status(400).json({ error: 'Appointment date is not avaliable' });
+        if(checkAvailability) {
+            return res.status(400).json({ error: 'Appointment date is not availiable' });
         }
 
         const appointment = await Appointment.create({

@@ -30,8 +30,12 @@ class Queue { //cada serviço vai ter uma fila separada, ex: fila de cancelament
         jobs.forEach(job =>{
             const { bee, handle } = this.queues[job.key];
 
-            bee.process(handle);
+            bee.on('failed', this.handleFailure).process(handle);
         });
+    }
+    //campo de erro das paradas de sendMail (caso escreva alguma função errado)
+    handleFailure(job, err) {
+        console.log(`Queue ${job.queue.name}: FAILED`, err);
     }
 }
 
