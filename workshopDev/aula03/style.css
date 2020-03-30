@@ -1,18 +1,13 @@
-/*
-largura
-Conteudo da caixa
-Espaçamentos
-Bordas
-Preenchimento
-
-Display - inline - block
-*/
-
+/* Estilos globais */
 body{
     background: #e5e5e5;
     color: #25282b;
     margin: 0;
     font-family: 'Montserrat', sans-serif;
+}
+
+body.hideScroll {
+    overflow: hidden;
 }
 
 a{
@@ -32,6 +27,35 @@ p .description {
 }
 
 
+.button {
+
+    color: #FFF;
+    background: #ff5e84;
+
+    width: 150px;
+    height: 40px;
+    
+    border-radius: 8px;
+
+    font-size: 14px;    
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    box-shadow: 0px 8px 10px rgba(255,0,92, 0.16); 
+
+}
+
+.button:hover{
+    background-color: #0984e3;
+    text-decoration: none;
+
+}
+
+/* Estilos padrão */
+
 #container{
     width: 90%;
     max-width: 980px;
@@ -41,7 +65,7 @@ p .description {
 
 #intro {
     width: 300px;
-    margin-right: 20px;
+    margin-right: 64px;
 }
 
 main{
@@ -57,14 +81,11 @@ main{
 button{
     background: none;
     color: #ff5e84;
-
     border: none;
-    
     font-size: 14px;
     font-weight: bold;
     line-height: 18px;  
     letter-spacing: 0.2px;
-
     cursor: pointer;
     outline: none;
 }
@@ -73,30 +94,12 @@ button:hover {
     text-decoration: underline;
 }
 
-button.fat {
-
-    color: #FFF;
-    background: #ff5e84;
-    width: 150px;
-    height: 40px;
-    border-radius: 6px;
-    box-shadow: 0px 8px 10px rgba(255,0,92, 0.16); 
-
-}
-
-button.fat:hover{
-    text-decoration: none;
-}
-
 footer {
     text-align: center;
-
-        
     font-size: 14px;
     font-weight: 400;
     line-height: 18px;  
     letter-spacing: 0.2px;
-
     color: #777;
 }
 
@@ -106,13 +109,10 @@ footer {
 
 .idea{
     display: flex;
-
     background-color: #FFF;
     box-shadow: 0 4px 16px -8px rgba(1,1,1,0.5);
     border-radius: 8px;
-    
     padding: 20px;
- 
     margin-bottom: 32px;
 } 
 
@@ -132,19 +132,24 @@ footer {
 }
 
 .idea .description {
-    margin: 16px 0 16px 0;
+    margin: 16px 0;
 }
 
 #modal {
-
     background: #ff5e84;
     position: absolute;
+
     top: 0;
-    width: 100vw;
-    height: 100vh;
+    bottom: 0;  
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     transition: 400ms;
+}
+
+#modal.addScroll{
+    overflow: auto;
 }
 
 #modal .content {
@@ -154,18 +159,20 @@ footer {
 
 #modal .content h1 {
     text-align: center;
+
     text-transform: uppercase;
 }
 
 #modal form {
-
     width: 80%;
     max-width: 800px;
-    margin: 0 auto;
+  
+    margin: 0 auto 15%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap:20px;
 
+    grid-template-columns: 1fr 1fr;
+
+    gap:20px;
 }
 
 .content form div:nth-child(3),
@@ -176,9 +183,12 @@ footer {
 
 form input, 
 form textarea {
+
     width: 100%;
     padding: 12px;
+    
     box-sizing: border-box;
+
     border-radius: 6px;
     border: 1px solid rgba(141, 25, 52, 0.5);
     outline: none;
@@ -192,6 +202,7 @@ form label{
 }
 
 form a {
+
     width: 150px;
     height: 40px;
     background-color: #ffffff22;
@@ -222,7 +233,6 @@ form button {
     cursor: pointer;
     margin-top: 32px;
     grid-column: 2;
-
     justify-self: end;
     transition: 400ms;
 }
@@ -236,4 +246,70 @@ form button:hover {
 #modal.hide {
     opacity: 0;
     visibility: hidden;
+}
+
+/* IDEAIA.HTML */
+#page-ideas #container {
+    display: block;
+}
+
+#page-ideas header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#page-ideas nav{
+    display: flex;
+    align-items: center;
+}
+
+#page-ideas nav {
+    list-style: none;
+}
+
+#page-ideas nav li{
+    list-style-type: none;
+    margin-right: 16px;
+
+}
+
+#page-ideas nav li a{
+    color: #25282b;
+}
+
+ #page-ideas nav li a.button{  /*QUANDO TIVER UMA CLASS BUTTON, LEVAR COR BRANCA */
+    color:#FFF;
+}
+
+#page-ideas nav li:last-child{
+    margin: 0;
+}
+
+section#title {
+    text-align: center;
+}
+
+section#title p{
+    opacity: 0.7;
+}
+
+section#title h1{
+    margin: 0;
+    font-size: 28px;
+}
+
+section#ideas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+section#ideas .idea{
+    margin: 0;
+}
+
+section#title,
+section#ideas,
+footer {
+    margin-top: 64px;
 }
