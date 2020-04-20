@@ -1,6 +1,8 @@
 import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
+import AppError from '../errors/AppError';
+
 import Appointment from '../models/Appointment';
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
@@ -10,12 +12,12 @@ import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
 // request quando está recebendo os dados
 interface Request {
-  provider: string;
+  provider_id: string;
   date: Date;
 }
 
 class CreateAppointmentService {
-  public async execute({ date, provider }: Request): Promise<Appointment> {
+  public async execute({ date, provider_id }: Request): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
@@ -25,11 +27,11 @@ class CreateAppointmentService {
     );
 
     if (findAppointmentsInSameDate) {
-      throw Error('This appointment is already booked');
+      throw new AppError('This appointment is already booked');
     }
     // o create apenas cria, mas nao salva no banco
     const appointment = appointmentsRepository.create({
-      provider,
+      provider_id,
       date: appointmentDate,
     });
 
