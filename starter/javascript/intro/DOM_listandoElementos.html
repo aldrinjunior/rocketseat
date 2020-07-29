@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input id="nome" />
+        <!-- codigo foi apontado para aqui -->
+    </div>
+
+    <script>
+        var linkElement = document.createElement('a');
+        linkElement.setAttribute('href', 'http://rocketseat.com.br');
+        linkElement.setAttribute('title', 'Site da rocketseat');
+        
+        var textElement = document.createTextNode('Acessar site rocketseat');
+        linkElement.appendChild(textElement);// adicionar o textElement como um filho do text element 
+
+        var containerElement = document.querySelector('#app');
+        containerElement.appendChild(linkElement);
+
+        var inputElement = document.querySelector('#nome ');
+        containerElement.removeChild(inputElement);
+    </script>
+</body>
+</html>

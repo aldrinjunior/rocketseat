@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var sexo = 'M', idade = 20;
+
+        var masculino;
+
+        //AND
+        if(sexo === 'M' || idade >= 20) {
+            masculino = true;
+            console.log('ok');
+        }else{
+            console.log('not ok');
+        }
+        //OR
+        if(sexo === 'M' && idade <= 20) {
+            console.log('condição aceita')
+        }
+        //NOT
+        if (sexo != 'M') {
+            console.log('nao é masculino')
+        }
+        //lembrar de armazenar o resultado nas variaveis
+        console.log(masculino);
+        //condição no javascript sempre retorna um true or false 
+    </script>
+</body>
+</html>

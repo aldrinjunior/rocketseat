@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <input type="text" name="nome" id="nome" class="nome" />
+        <input type="text" name="nome" id="nome2" /> -->
+        <input type="text" name="nome" />
+        <button class="botao">Adicionar</button>
+    </div>
+
+    <script>                
+    // var inputElement = document.getElementById('nome');
+        // assim busca o elemento pelo id 
+    // var inputElement = document.getElementsByTagName('input')[0];
+        // var inputElement = document.getElementsByClassName('nome')[0];
+        // console.log(inputElement);
+    
+        //query selector serve pra procurar aquele elemento 
+    
+    var inputElement = document.querySelector('input[name=nome]');
+    var btnElement = document.querySelector('button.botao');
+    
+        btnElement.onclick = function() {
+            var text = inputElement.value;
+            alert(text);
+            //alert('botao clicado');
+        }
+    </script>
+</body>
+</html>
